@@ -32,7 +32,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {   //合并配置文件
     contentBase: false, // since we use CopyWebpackPlugin.
     compress: true,
     host: HOST || config.dev.host,
-    port: PORT || config.dev.port,
+    port: PORT || config.dev.port,   
     open: config.dev.autoOpenBrowser,
     overlay: config.dev.errorOverlay
       ? { warnings: false, errors: true }
@@ -46,14 +46,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {   //合并配置文件
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': require('../config/dev.env')
+      'process.env': require('../config/dev.env')   
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
+    new HtmlWebpackPlugin({     
+      filename: 'index.html',   
       template: 'index.html',
       inject: true
     }),

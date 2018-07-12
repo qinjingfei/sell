@@ -6,7 +6,7 @@
 
 NO| Guide |
 ---| --- | 
- 1 |  [webpack概念](https://github.com/qinjingfei/sell/notes/webpack.md)  |
+ 1 |  [webpack概念](https://github.com/qinjingfei/sell/blob/master/notes/webpack.md)  |
 
 
 ## Build Setup
