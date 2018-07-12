@@ -23,8 +23,8 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    alias: {
+    extensions: ['.js', '.vue', '.json'], //自动补全文件后缀
+    alias: {                              //提供一些别名
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
     }
@@ -32,25 +32,26 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.vue$/,
-        loader: 'vue-loader',
+        test: /\.vue$/,      //匹配.vue结尾的文件
+        loader: 'vue-loader',   //用vue-loader处理
         options: vueLoaderConfig
       },
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+        test: /\.js$/,      //匹配.js结尾的文件
+        loader: 'babel-loader',   //用babel-loader处理
+        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')] //只在这个目录下处理
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+          limit: 10000,   //当图片大小小于10kb时，生成字符串，打包到编译的js文件里
+                          // 当图片大于10kb, 单独生成一个文件
+          name: utils.assetsPath('img/[name].[hash:7].[ext]') //文件名字命名规则
         }
       },
       {
-        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,  //媒体文件
         loader: 'url-loader',
         options: {
           limit: 10000,
@@ -58,7 +59,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,   //字体文件
         loader: 'url-loader',
         options: {
           limit: 10000,
