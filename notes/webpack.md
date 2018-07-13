@@ -22,7 +22,7 @@ webpack的四个核心概念:
  在这个项目中`entry`配置:
 
 
- `sell/build/webpack.base.conf.js`
+ `/sell/build/webpack.base.conf.js`
 
 ```
 module.exports = {
@@ -43,7 +43,7 @@ module.exports = {
 
  > output 属性告诉 webpack 在哪里输出它所创建的 bundles，以及如何命名这些文件，默认值为 ./dist。基本上，整个应用程序结构，都会被编译到你指定的输出路径的文件夹中。你可以通过在配置中指定一个 output 字段，来配置这些处理过程：
 
-`sell/build/webpack.base.conf.js`
+`/sell/build/webpack.base.conf.js`
 
 ```
 module.exports = {
@@ -66,7 +66,7 @@ module.exports = {
 
 ```
 
-`sell/config/index.js`
+`/sell/config/index.js`
 
 ```
 dev:{
@@ -94,7 +94,7 @@ build:{
 
 可以看到 通过`output.path` 和 `output.name`属性，来告诉 webpack bundle 的名称，以及我们想要 bundle 生成(emit)到哪里.
 
-在这个项目中, bundle会生成在 `sell/dist`中, 名字叫`[name].js`(app.js).
+在这个项目中, bundle会生成在 `/sell/dist`中, 名字叫`[name].js`(app.js).
 
 ## loader
 
@@ -105,7 +105,7 @@ build:{
 * test 属性，用于标识出应该被对应的 loader 进行转换的某个或某些文件。
 * use 属性，表示进行转换时，应该使用哪个 loader。
 
-`sell/build/webpack.base.conf.js`
+`/sell/build/webpack.base.conf.js`
 
 ```
 module.exports = {
@@ -125,15 +125,16 @@ module.exports = {
         include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,	//图片
         loader: 'url-loader',
         options: {
-          limit: 10000,
+          limit: 10000,		//当图片大小小于10kb时，生成字符串，打包到编译的js文件里
+                       		// 当图片大于10kb, 单独生成一个文件
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },
       {
-        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,		//媒体文件
         loader: 'url-loader',
         options: {
           limit: 10000,
@@ -141,7 +142,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/, 				//字体文件
         loader: 'url-loader',
         options: {
           limit: 10000,
@@ -186,7 +187,7 @@ module.exports = config;
 >loader 被用于转换某些类型的模块，而插件则可以用于执行范围更广的任务。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。插件接口功能极其强大，可以用来处理各种各样的任务。
 想要使用一个插件，你只需要 require() 它，然后把它添加到 plugins 数组中。多数插件可以通过选项(option)自定义。你也可以在一个配置文件中因为不同目的而多次使用同一个插件，这时需要通过使用 new 操作符来创建它的一个实例
 
-`sell/build/webpack.dev.conf.js`
+`/sell/build/webpack.dev.conf.js`
 
 
 ```
@@ -197,6 +198,7 @@ devServer:{
 
 	//...
 
+	
 	plugins: [
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')

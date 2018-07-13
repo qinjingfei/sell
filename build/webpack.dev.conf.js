@@ -13,6 +13,12 @@ const portfinder = require('portfinder')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
+//定义一些api
+const appData = require('../data.json')
+const seller = appData.seller
+const goods = appData.goods
+const ratings = appData.ratings
+
 const devWebpackConfig = merge(baseWebpackConfig, {   //合并配置文件
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -22,6 +28,26 @@ const devWebpackConfig = merge(baseWebpackConfig, {   //合并配置文件
 
   // these devServer options should be customized in /config/index.js
   devServer: {
+    before(app) {
+      app.get('/api/seller', function(req, res) {
+        res.json({
+          errno: 0,
+          data: seller
+        })
+      });
+      app.get('/api/goods', function(req, res) {
+        res.json({
+          errno: 0,
+          data: goods
+        })
+      });
+      app.get('/api/ratings', function(req, res) {
+        res.json({
+          errno: 0,
+          data: ratings
+        })
+      });
+    },
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [
