@@ -7,6 +7,7 @@
 NO| Guide |
 ---| --- | 
  1 |  [webpack概念](https://github.com/qinjingfei/sell/blob/master/notes/webpack.md)  |
+ 2 | [准备工作]((https://github.com/qinjingfei/sell/blob/master/notes/preparation.md) ) |
 
 
 ## Build Setup
