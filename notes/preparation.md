@@ -74,3 +74,5 @@ devServer: {
 
 ```
 
+
+![success](./img/preparation_2.jpg)
