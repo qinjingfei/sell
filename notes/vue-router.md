@@ -22,7 +22,7 @@
 ```
 `header`组件在`App.vue`中调用，并没有在路由中注册
 
-![vue-router_2.png](./img/vue-router_2.png)
+![vue-router_1.png](./img/vue-router_1.png)
 
 ## 路由
 
@@ -65,11 +65,11 @@ export default new Router({
 ## 其它
 
 * 移动端的适配
-	* `<meta name="viewport" content="width=device-width,initial-scale=1.0,
-+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"> <!--移动设备适配-->`
+	* `<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"> <!--移动设备适配-->`
+
 * CSS reset
 	* `<link rel="stylesheet" href="static/css/reset.css"> <!--import css reset-->`
-	* 代码位于`www.cssreset.com`
+	* 可以从这里下载[css reset](https://cssreset.com/)
 * `devDependencies`中`stylus` 和`stylus-loader`
 * 添加了一些stylus的代码， 位于 `/sell/src/App.vue`和`/sell/src/stylus/mixin.styl`
 

@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <Header :seller="seller"></Header>
     <!-- 使用 router-link 组件来导航. -->
     <!-- 通过传入 `to` 属性指定链接. -->
     <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
     <div class="tab">
-      <div class="tab-item"> 
+      <div class="tab-item">
         <router-link to="/goods">商品</router-link>
       </div>
       <div class="tab-item">
         <router-link to="/ratings">评价</router-link>
       </div>
       <div class="tab-item">
-         <router-link to="/seller">商家</router-link>
+        <router-link to="/seller">商家</router-link>
       </div>
     </div>
     <!-- 路由出口 -->
@@ -23,18 +23,32 @@
 
 <script>
 
-import Header from './components/header/header.vue'
+  import Header from './components/header/header.vue'
 
-export default {
-  name: 'App',
-  components:{
-    Header           //es6 相当于 Header: Header
+  const ERR_OK = 0;
+  export default {
+    name: 'App',
+    data() {
+      return {
+        seller: {}
+      };
+    },
+    created() {
+      this.$http.get('/api/seller').then((response) => {    //因为是mock的数据，所以一定会成功，就不写失败的call back了
+        response = response.body;                           //extract json from response
+        if (response.errno === ERR_OK) {
+          this.seller = response.data
+        }
+      })
+    },
+    components: {
+      Header           //es6 相当于 Header: Header
+    }
   }
-}
 </script>
 
 <style lang="stylus">
-@import './common/stylus/mixin.styl'
+  @import './common/stylus/mixin.styl'
   .tab
     display: flex
     width: 100%
