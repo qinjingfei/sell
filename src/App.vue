@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!-- 把seller 传给子组件 header.vue -->
     <Header :seller="seller"></Header>
     <!-- 使用 router-link 组件来导航. -->
     <!-- 通过传入 `to` 属性指定链接. -->
