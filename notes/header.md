@@ -180,3 +180,57 @@ bg-image($url)
       transform: scaleY(0.5)
 
 ```
+
+### `inline-block`元素间间隙
+
+>inline-block 即内联块，可以水平排版
+
+
+[inline-block元素间间隙产生及去除详解](http://demo.doyoe.com/css/inline-block-space/)
+
+
+* 间隙的由来(换行)
+```
+<div id="demo">
+  <span>我是一个span</span>
+  <span>我是一个span</span>
+  <span>我是一个span</span>
+  <span>我是一个span</span>
+</div>
+
+```
+
+在本例中，我们不对span做任何处理，你会发现span元素间也存在间隙，你有否怀疑这是由于换行导致？OK，我们来验证下这个疑问；
+
+```
+<div id="demo">
+  <span>我是一个span</span><span>我是一个span</span><span>我是一个span</span><span>我是一个span</span>
+</div>
+
+```
+
+在本例中，我们只是将上例中**`span`写到同一行**，间隙没有了；所以说间隙是由换行或者回车导致的，应该无大问题
+
+* 干掉间隙方案2: font-size:0 
+
+```
+<div id="demo">
+  <span>我是一个span</span>
+  <span>我是一个span</span>
+  <span>我是一个span</span>
+  <span>我是一个span</span>
+  <span>我是一个span</span>
+</div>
+#demo{
+  font-size:0;
+}
+#demo span{
+  display:inline-block;
+  *display:inline;
+  *zoom:1;
+  font-size:14px;
+}
+
+```
+
+奇怪？为什么font-size会对间隙有影响。因为space是由换行或回车所产生空白符所致，既然是字符当然无法摆脱font的控制（space是固定值？space值会否因font-size不同而变化？看DEMO)
