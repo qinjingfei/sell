@@ -5,8 +5,8 @@ import VueResource from 'vue-resource'
 import App from './App'
 import router from './router'
 
-Vue.config.productionTip = false;
-Vue.use(VueResource);	//引用VueResource
+Vue.config.productionTip = false  
+Vue.use(VueResource)  	//引用VueResource
 
 /* eslint-disable no-new */
 new Vue({
@@ -14,4 +14,4 @@ new Vue({
   router,
   components: {App},
   template: '<App/>'
-});
+})  

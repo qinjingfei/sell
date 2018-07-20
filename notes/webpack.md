@@ -3,11 +3,13 @@
 ![webpack](./img/webpack_1.png)
 
 [webpack官方文档](https://www.webpackjs.com/concepts/)
+
 ## 概念
 
 >本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle
 
 webpack的四个核心概念:
+
 * entry  -- 入口
 * output -- 输出
 * loader
@@ -17,10 +19,10 @@ webpack的四个核心概念:
 ## Entry(入口)
 
  >入口起点(entry point)指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始。进入入口起点后，webpack 会找出有哪些模块和库是入口起点（直接和间接）依赖的。
+
  可以通过在 webpack 配置中配置 entry 属性，来指定一个入口起点（或多个入口起点）。默认值为 ./src。
 
  在这个项目中`entry`配置:
-
 
  `/sell/build/webpack.base.conf.js`
 
@@ -34,10 +36,7 @@ module.exports = {
 
  //...
 }
- 
-```
-
-
+ ```
 
 ## Output(出口)
 

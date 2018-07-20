@@ -1,14 +1,12 @@
 # header组件
 
-
 ## Vue 部分
-
 
 ### vue resource
 
 >The plugin for Vue.js provides services for making web requests and handle responses using a XMLHttpRequest or JSONP.
 
-[vue resource github](https://github.com/pagekit/vue resource)
+[vue resource github](https://github.com/pagekit/vue-resource)
 
 * 首先，我们需要取得mock data. 
 
@@ -25,13 +23,14 @@
         seller: {}
       };
     },
-    created() {																					
-      this.$http.get('/api/seller').then((response) => {    //因为是mock的数据，所以一定会成功，就不写失败的call back了
-      														// 这里是一个promise对象
-        response = response.body;                           //extract json from response
-        													// reponse.json 是一个promise对象,所以这里我们用response.body
-        if (response.errno === ERR_OK) {
-          this.seller = response.data
+    created() {
+      //因为是mock的数据，所以一定会成功，就不写失败的call back了
+      // 这里是一个promise对象
+      this.$http.get('/api/seller').then((response) => {
+        //extract json from response
+        // reponse.json 是一个promise对象,所以这里我们用response.body
+        response = response.body;
+        this.seller = response.data
         }
       })
     },
@@ -47,6 +46,7 @@
 [props介绍](https://cn.vuejs.org/v2/guide/components-props.html)
 
 `src/App.vue`
+
 ```
 <!-- 把seller 传给子组件 header.vue -->
 <!-- 这是一个 JavaScript 表达式而不是一个字符串。-->
@@ -67,9 +67,7 @@ props: {
 //...
 ```
 
-
 * vue根据不同type切换不同图片
-
 
 ```
 <ul v-if="seller.supports" class="supports">
@@ -115,7 +113,7 @@ created() {
 
 给内容外增加父元素，并让内容部分的底部内边距与页脚高度的值相等。
 
-```
+```html
 <div class="detail-wrapper clearfix">
     <div class="detail-main">
      </div>
@@ -124,7 +122,9 @@ created() {
 <div class="detail-close" @click="hideDetail">
     <i class="icon-close"></i>
 </div>
+```
 
+```CSS
 .detail-wrapper
     width: 100%
     min-height: 100%           //需要
@@ -142,13 +142,9 @@ created() {
     font-size: 32px
 ```
 
-
-
-
-
 ### devicePixelRatio
 
-[devicePixelRatio ](https://www.cnblogs.com/moqiutao/p/6818235.html)
+[devicePixelRatio](https://www.cnblogs.com/moqiutao/p/6818235.html)
 
 >devicePixelRatio ，它是设备上物理像素和设备独立像素( device-independent pixels (dips) )的比例，即 devicePixelRatio = 屏幕物理像素/设备独立像素 
 
@@ -185,12 +181,12 @@ bg-image($url)
 
 >inline-block 即内联块，可以水平排版
 
-
 [inline-block元素间间隙产生及去除详解](http://demo.doyoe.com/css/inline-block-space/)
 
-
 * 间隙的由来(换行)
-```
+
+```html
+
 <div id="demo">
   <span>我是一个span</span>
   <span>我是一个span</span>
@@ -202,7 +198,8 @@ bg-image($url)
 
 在本例中，我们不对span做任何处理，你会发现span元素间也存在间隙，你有否怀疑这是由于换行导致？OK，我们来验证下这个疑问；
 
-```
+```html
+
 <div id="demo">
   <span>我是一个span</span><span>我是一个span</span><span>我是一个span</span><span>我是一个span</span>
 </div>
@@ -213,7 +210,7 @@ bg-image($url)
 
 * 干掉间隙方案2: font-size:0 
 
-```
+```html
 <div id="demo">
   <span>我是一个span</span>
   <span>我是一个span</span>
@@ -221,6 +218,9 @@ bg-image($url)
   <span>我是一个span</span>
   <span>我是一个span</span>
 </div>
+```
+
+```CSS
 #demo{
   font-size:0;
 }
