@@ -30,6 +30,7 @@ export default {
       } else {
         Vue.set(this.food, "count", 1);
       }
+      this.$emit('add', event.target);
     },
     decreaseCart(event) {
       if (!event._constructed) {

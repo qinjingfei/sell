@@ -39,7 +39,7 @@
         </li>
       </ul>
     </div>
-    <shopcart :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
+    <shopcart ref="shopcart" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
   </div>
 </template>
 
@@ -71,9 +71,9 @@ export default {
       response = response.body; //extract json from response
       if (response.errno === ERR_OK) {
         this.goods = response.data;
-        this.$nextTick(() => {
-          this._initScroll();
-          this._calculateHeight();
+        this.$nextTick(() => {        //会在下一次DOM更新时，执行
+          this._initScroll();         //初始化BScroll
+          this._calculateHeight();    //计算每个foodlist高度，并把它们的accumulator放入到数组listHeight中
         });
       }
     });
@@ -92,6 +92,12 @@ export default {
     }
   },
   methods: {
+     _drop(target) {
+        // 体验优化,异步执行下落动画
+        this.$nextTick(() => {
+          this.$refs.shopcart.drop(target);
+        });
+      },
     _initScroll() {
       this.menuScroll = new BScroll(this.$refs.menuWrapper, {
         click: true
@@ -121,6 +127,12 @@ export default {
       let foodList = this.$refs.foodList;
       let el = foodList[index];
       this.foodsScroll.scrollToElement(el, 300);
+    },
+    _drop(target) {
+      // 体验优化,异步执行下落动画
+      this.$nextTick(() => {
+        this.$refs.shopcart.drop(target);
+      });
     }
   },
   components: {
