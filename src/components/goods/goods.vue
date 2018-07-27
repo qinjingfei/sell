@@ -31,7 +31,7 @@
                   <span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
+                  <cartcontrol @add="addFood" :food="food"></cartcontrol>   <!--把food传给子组件cartcontrol， add是在vue里自定义的事件-->
                 </div>
               </div>
             </li>
@@ -39,7 +39,7 @@
         </li>
       </ul>
     </div>
-    <shopcart ref="shopcart" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
+    <shopcart ref="shopcart" :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
   </div>
 </template>
 
@@ -89,11 +89,17 @@ export default {
         }
       }
       return 0;
+    },
+    selectFoods() {
+      let foods = [];
+      Array.from(this.goods).forEach((good) => {
+        good.foods.forEach((food) => food.count?foods.push(food):'');
+      });
+      return foods;
     }
   },
   methods: {
-     _drop(target) {
-        // 体验优化,异步执行下落动画
+      addFood(target){
         this.$nextTick(() => {
           this.$refs.shopcart.drop(target);
         });

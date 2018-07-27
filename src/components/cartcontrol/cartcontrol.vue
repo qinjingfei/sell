@@ -30,7 +30,7 @@ export default {
       } else {
         Vue.set(this.food, "count", 1);
       }
-      this.$emit('add', event.target);
+      this.$emit('add', event.target); // vue自定义事件 add
     },
     decreaseCart(event) {
       if (!event._constructed) {
