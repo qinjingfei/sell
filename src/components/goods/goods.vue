@@ -1,52 +1,58 @@
 <template>
-  <div class="goods">
-    <div class="menu-wrapper" ref="menuWrapper">
-      <ul>
-          <li v-for="(item,index) in goods" class="menu-item"  :class="{'current':currentIndex===index}"
-              @click="selectMenu(index,$event)" ref="menuList" :key="index">
-          <span class="text">
-            <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
-          </span>
-        </li>
-      </ul>
+  <div>
+    <div class="goods">
+      <div class="menu-wrapper" ref="menuWrapper">
+        <ul>
+            <li v-for="(item,index) in goods" class="menu-item"  :class="{'current':currentIndex===index}"
+                @click="selectMenu(index,$event)" ref="menuList" :key="index">
+            <span class="text">
+              <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="foods-wrapper" ref="foodWrapper">
+        <ul>
+          <li v-for="(item,index) in goods" class="food-list" ref="foodList" :key="index">
+            <h1 class="title">{{item.name}}</h1>
+            <ul>
+              <li @click="selectFood(food, $event)" v-for="(food,index) in item.foods" class="food-item border-1px" :key="index">
+                <div class="icon">
+                  <img :src="food.icon" width="57px" height="57px" alt="">
+                </div>
+                <div class="content">
+                  <h2 class="name">{{food.name}}</h2>
+                  <p class="desc">{{food.description}}</p>
+                  <div class="extra">
+                    <!--清除换行-->
+                    <span class="count">月售{{food.sellCount}}份</span><span class="rating">好评率{{food.rating}}%</span>
+                  </div>
+                  <div class="price">
+                    <span class="now">¥{{food.price}}</span>
+                    <span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
+                  </div>
+                  <div class="cartcontrol-wrapper">
+                     <!--把food传给子组件cartcontrol， add是在food.vue里自定义的事件, 是为了将target传给父组件(goods.vue)-->
+                    <cartcontrol @add="addFood" :food="food"></cartcontrol>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <shopcart ref="shopcart" :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
     </div>
-    <div class="foods-wrapper" ref="foodWrapper">
-      <ul>
-        <li v-for="(item,index) in goods" class="food-list" ref="foodList" :key="index">
-          <h1 class="title">{{item.name}}</h1>
-          <ul>
-            <li v-for="(food,index) in item.foods" class="food-item border-1px" :key="index">
-              <div class="icon">
-                <img :src="food.icon" width="57px" height="57px" alt="">
-              </div>
-              <div class="content">
-                <h2 class="name">{{food.name}}</h2>
-                <p class="desc">{{food.description}}</p>
-                <div class="extra">
-                  <!--清除换行-->
-                  <span class="count">月售{{food.sellCount}}份</span><span class="rating">好评率{{food.rating}}%</span>
-                </div>
-                <div class="price">
-                  <span class="now">¥{{food.price}}</span>
-                  <span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
-                </div>
-                <div class="cartcontrol-wrapper">
-                  <cartcontrol @add="addFood" :food="food"></cartcontrol>   <!--把food传给子组件cartcontrol， add是在vue里自定义的事件-->
-                </div>
-              </div>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <shopcart ref="shopcart" :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
+    <food :food="selectedFood" ref="food"></food>
   </div>
+  
 </template>
 
 
 <script>
 import BScroll from "better-scroll";
 import shopcart from "@/components/shopcart/shopcart";
+import food from "@/components/food/food";
 import cartcontrol from "@/components/cartcontrol/cartcontrol";
 
 const ERR_OK = 0;
@@ -62,7 +68,8 @@ export default {
     return {
       goods: {},
       listHeight: [],
-      scrollY: 0
+      scrollY: 0,
+      selectedFood: {}
     };
   },
   created() {
@@ -99,11 +106,19 @@ export default {
     }
   },
   methods: {
-      addFood(target){
-        this.$nextTick(() => {
-          this.$refs.shopcart.drop(target);
-        });
-      },
+    selectFood(food, event) {
+      if (!event._constructed) {
+        return;
+      }
+      this.selectedFood = food;
+      this.$refs.food.show();     //父组件调用自组件的方法  
+    },
+    addFood(target){
+      this.$nextTick(() => {
+        this.$refs.shopcart.drop(target); 
+      });
+    },
+    //下划线代表私有方法
     _initScroll() {
       this.menuScroll = new BScroll(this.$refs.menuWrapper, {
         click: true
@@ -143,7 +158,8 @@ export default {
   },
   components: {
     shopcart,
-    cartcontrol
+    cartcontrol,
+    food
   }
 };
 </script>
