@@ -1,55 +1,62 @@
 <template>
-  <div class="shopcart">
-    <div class="content" @click="toggleList">
-      <div class="content-left">
-        <div class="logo-wrapper">
-          <div class="logo" :class="{'highlight': totalCount > 0}">
-            <span class="icon-shopping_cart" :class="{'highlight': totalCount > 0}"></span>
-          </div>
-          <div class="num" v-show="totalCount>0">{{totalCount}}</div>
-        </div>
-        <div class="price" :class="{'highlight': totalCount > 0}">¥{{totalPrice}}元</div>
-            <div class="desc">另需配送費¥{{deliveryPrice}}元</div>
-        </div>
-      <div class="content-right">
-        <div class="pay" :class="payClass">
-          {{payDesc}}
-        </div></div>
-    </div>
-    <div class="ball-container">
-        <div v-for="(ball,index) in balls" v-show="ball.show" :key="index">
-          <transition name="drop" @before-enter="beforeDrop" @enter="dropping" @after-enter="afterDrop">
-            <div class="ball" v-show="ball.show">
-              <div class="inner inner-hook"></div> <!--inner-hook 用于被选择没有实际含义-->
+  <div>
+    <div class="shopcart">
+      <div class="content" @click="toggleList">
+        <div class="content-left">
+          <div class="logo-wrapper">
+            <div class="logo" :class="{'highlight': totalCount > 0}">
+              <span class="icon-shopping_cart" :class="{'highlight': totalCount > 0}"></span>
             </div>
-          </transition>
-        </div>  
+            <div class="num" v-show="totalCount>0">{{totalCount}}</div>
+          </div>
+          <div class="price" :class="{'highlight': totalCount > 0}">¥{{totalPrice}}元</div>
+              <div class="desc">另需配送費¥{{deliveryPrice}}元</div>
+          </div>
+        <div class="content-right" @click.stop.prevent="pay"> <!--vue阻止冒泡-->
+          <div class="pay" :class="payClass">
+            {{payDesc}}
+          </div></div>
       </div>
-      <transition name="fold">
-        <div class="shopcart-list" v-show="listShow">
-          <div class="list-header">
-            <h1 class="title">购物车</h1>
-            <span class="empty">清空</span>
-          </div>
-          <div class="list-content">
-            <ul>
-              <li class="food" v-for="(food, index) in selectFoods" :key="index">
-                <span class="name">{{food.name}}</span>
-                <div class="price">
-                  <span>¥{{food.price * food.count}}</span>
-                </div>
-                <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>  
-      </transition> 
+      <div class="ball-container">
+          <div v-for="(ball,index) in balls" v-show="ball.show" :key="index">
+            <transition name="drop" @before-enter="beforeDrop" @enter="dropping" @after-enter="afterDrop">
+              <div class="ball" v-show="ball.show">
+                <div class="inner inner-hook"></div> <!--inner-hook 用于被选择没有实际含义-->
+              </div>
+            </transition>
+          </div>  
+        </div>
+        <transition name="fold">
+          <div class="shopcart-list" v-show="listShow">
+            <div class="list-header">
+              <h1 class="title">购物车</h1>
+              <span class="empty" @click="empty">清空</span>
+            </div>
+            <div class="list-content" ref="listContent">
+              <ul>
+                <li class="food" v-for="(food, index) in selectFoods" :key="index">
+                  <span class="name">{{food.name}}</span>
+                  <div class="price">
+                    <span>¥{{food.price * food.count}}</span>
+                  </div>
+                  <div class="cartcontrol-wrapper">
+                    <cartcontrol :food="food"></cartcontrol>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>  
+        </transition>
+    </div>
+    <transition name="fade">
+      <div class="list-mask" @click="hideList" v-show="listShow"></div>
+    </transition>
   </div>
+  
 </template>
 
 <script>
+import BScroll from "better-scroll";
 import cartcontrol from "@/components/cartcontrol/cartcontrol";
 
 export default {
@@ -119,6 +126,17 @@ export default {
         return false;
       }
       let show = !this.fold;
+      if(show){                   
+        this.$nextTick(()=>{      //数据改变，但是DOM变化并不会立即生效
+         if (!this.scroll) {
+            this.scroll = new BScroll(this.$refs.listContent, {
+              click: true
+            });
+          } else {
+            this.scroll.refresh();
+          }
+        })
+      }
       return show;
     }
   },
@@ -137,6 +155,18 @@ export default {
         if (!this.totalCount) return;
         this.fold = !this.fold;
     },
+    hideList() {
+      this.fold = true;
+    },
+    empty(){
+      this.selectFoods.forEach((food)=>food.count = 0)
+    },
+    pay() {
+        if (this.totalPrice < this.minPrice) {
+          return;
+        }
+        window.alert(`支付${this.totalPrice}元`);
+      },
     beforeDrop(el) {
         this.balls.forEach((ball)=>{
           if(ball.show){
@@ -276,7 +306,7 @@ export default {
       position: fixed
       left: 32px
       bottom: 22px
-      z-index: 20 // 小于购物车的z-index
+      z-index: -1 // 小于购物车的z-index
       transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41)
       .inner
         width: 16px
@@ -320,9 +350,9 @@ export default {
         box-sizing: border-box
         border-1px(rgba(7, 17, 27, 0.1))
         .name
-            line-height: 24px
-            font-size: 14px
-            color: rgb(7, 17, 27)
+          line-height: 24px
+          font-size: 14px
+          color: rgb(7, 17, 27)
         .price
           position: absolute
           right: 90px
@@ -335,4 +365,19 @@ export default {
           position: absolute
           right: 0
           bottom: 6px
+.list-mask
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 40
+  backdrop-filter: blur(10px)
+  opacity: 1
+  background: rgba(7, 17, 27, 0.6)
+  &.fade-enter-active, &.fade-leave-active
+    transition: all 0.5s
+  &.fade-enter, &.fade-leave-active
+    opacity: 0
+    background: rgba(7, 17, 27, 0)
 </style>
