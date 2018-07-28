@@ -63,7 +63,7 @@
 import BScroll from "better-scroll";
 import star from "@/components/star/star"
 import split from "@/components/split/split"
-import ratingselect from "@/components/ratingselect/ratingselect"
+import ratingselect from "@/components/ratingselect/ratingselect";
 import {formatDate} from '@/common/js/date';
 
 

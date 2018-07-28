@@ -8,11 +8,11 @@
 
 [vue resource github](https://github.com/pagekit/vue-resource)
 
-* 首先，我们需要取得mock data. 
+* 首先，我们需要取得mock data.
 
 `src/App.vue`
 
-```
+```javascript
  import Header from './components/header/header.vue'
 
   const ERR_OK = 0;

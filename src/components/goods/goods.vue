@@ -77,7 +77,7 @@ export default {
       //因为是mock的数据，所以一定会成功，就不写失败的call back了
       response = response.body; //extract json from response
       if (response.errno === ERR_OK) {
-        this.goods = response.data;
+        this.goods = response.data;    //数据会立即更新，但DOM还未渲染
         this.$nextTick(() => {        //会在下一次DOM更新时，执行
           this._initScroll();         //初始化BScroll
           this._calculateHeight();    //计算每个foodlist高度，并把它们的accumulator放入到数组listHeight中
@@ -113,23 +113,22 @@ export default {
       this.selectedFood = food;
       this.$refs.food.show();     //父组件调用自组件的方法  
     },
+    //DOM更新完后，执行shopcart的drop方法
     addFood(target){
       this.$nextTick(() => {
         this.$refs.shopcart.drop(target); 
       });
     },
-    //下划线代表私有方法
+    //下划线代表私有方法, 初始化BScroll
     _initScroll() {
-      this.menuScroll = new BScroll(this.$refs.menuWrapper, {
+      this.menuScroll = new BScroll(this.$refs.menuWrapper, {   //初始化this.menuScroll
         click: true
       });
-      this.foodsScroll = new BScroll(this.$refs.foodWrapper, {
+      this.foodsScroll = new BScroll(this.$refs.foodWrapper, {  //初始化this.foodScroll
         probeType: 3,
         click: true
       });
-      this.foodsScroll.on("scroll", pos => {
-        this.scrollY = Math.abs(Math.round(pos.y));
-      });
+      this.foodsScroll.on("scroll", pos => this.scrollY = Math.abs(Math.round(pos.y)));
     },
     _calculateHeight() {
       let foodList = this.$refs.foodList;

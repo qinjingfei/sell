@@ -4,8 +4,6 @@
 
 下载resource 文件，并把reource 添加到 `/sell`目录下 
 
-
-
 ## 图标字体制作
 
 > IcoMoon is an icon solution, providing three main services: Vector Icon Packs, The IcoMoon App, and hosting icons as SVGs or fonts. Read further to learn about each service in detail.
@@ -33,8 +31,7 @@
 
 `/sell/build/webpack.dev.conf.js`
 
-
-```
+```javascript
 //定义一些api 
 const appData = require('../data.json') 
 const seller = appData.seller 
