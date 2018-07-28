@@ -226,11 +226,11 @@ bg-image($url)
 }
 #demo span{
   display:inline-block;
-  *display:inline;
-  *zoom:1;
+  display:inline;
+  zoom:1;
   font-size:14px;
 }
 
 ```
 
-奇怪？为什么font-size会对间隙有影响。因为space是由换行或回车所产生空白符所致，既然是字符当然无法摆脱font的控制（space是固定值？space值会否因font-size不同而变化？看DEMO)
+奇怪？为什么font-size会对间隙有影响。因为space是由换行或回车所产生空白符所致，既然是字符当然无法摆脱font的控制
