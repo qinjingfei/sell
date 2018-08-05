@@ -105,6 +105,26 @@ data: function () {
 
 ## 通过 Prop 向子组件传递数据
 
+[Prop](https://cn.vuejs.org/v2/guide/components-props.html)
+
+```
+  <!--把food传给子组件cartcontrol， add是在food.vue里自定义的事件, 是为了将target传给父组件(goods.vue)-->
+ <cartcontrol @add="addFood" :food="food"></cartcontrol>
+```
+
+```
+ props:{
+        food: {
+            type: Object
+        }
+    }
+```
+
+
+## 单个根元素
+
+every component must have a single root element (每个组件必须只有一个根元素)
+
 
 ## 通过事件向父级组件发送消息
 
@@ -128,6 +148,43 @@ data: function () {
 
 
 [组件基础](https://cn.vuejs.org/v2/guide/components.html)
+
+
+## 处理边界情况
+
+[处理边界情况](https://cn.vuejs.org/v2/guide/components-edge-cases.html)
+
+### 访问子组件实例或子元素
+
+尽管存在 prop 和事件，有的时候你仍可能需要在 JavaScript 里直接访问一个子组件。为了达到这个目的，你可以通过 `ref` 特性为这个子组件赋予一个 ID 引用。例如：
+
+```
+<base-input ref="usernameInput"></base-input>
+
+```
+可以使用:
+```
+this.$refs.usernameInput
+```
+来访问这个 `<base-input>` 实例
+
+例子：
+
+```
+ <!--把food传给子组件cartcontrol， add是在food.vue里自定义的事件, 是为了将target传给父组件(goods.vue)-->
+<cartcontrol @add="addFood" :food="food"></cartcontrol>
+```
+
+```
+//DOM更新完后，执行shopcart的drop方法
+addFood(target){
+  this.$nextTick(() => {
+    this.$refs.shopcart.drop(target); 
+  });
+}
+
+```
+
 
 # Truthy
 

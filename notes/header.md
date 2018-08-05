@@ -69,22 +69,23 @@ props: {
 
 * vue根据不同type切换不同图片
 
-```
+```html
 <ul v-if="seller.supports" class="supports">
   <li class="support-item" v-for="(item,index) in seller.supports">
     <span class="icon" :class="classMap[seller.supports[index].type]"></span>
     <span class="text">{{seller.supports[index].description}}</span>
   </li>
 </ul>
+```
 
-//....
+```javascript
 
 created() {
       this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
 }
+```
 
-//...
-
+```stylus
 
 &.decrease
   bg-image('decrease_1')
@@ -124,7 +125,7 @@ created() {
 </div>
 ```
 
-```CSS
+```stylus
 .detail-wrapper
     width: 100%
     min-height: 100%           //需要
@@ -155,7 +156,7 @@ created() {
 
 在这个项目中，不同的devicePixelRatio现实不同的图片
 
-```
+```stylus
 bg-image($url)
   background-image: url($url + "@2x.png")
   @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3)
@@ -206,7 +207,7 @@ bg-image($url)
 
 ```
 
-在本例中，我们只是将上例中**`span`写到同一行**，间隙没有了；所以说间隙是由换行或者回车导致的，应该无大问题
+在本例中，我们只是将上例中`span`写到同一行，间隙没有了；所以说间隙是由换行或者回车导致的，应该无大问题
 
 * 干掉间隙方案2: font-size:0 
 

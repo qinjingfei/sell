@@ -2,15 +2,25 @@
 
 > vue仿饿了么外卖
 
+
+效果图
+
+![](./notes/img/readme_1.jpg)
+
+![](./notes/img/readme_2.png)
+
+
 ## 目录
+
 
 NO| Guide |
 ---| --- | 
  1 |  [webpack概念](https://github.com/qinjingfei/sell/blob/master/notes/webpack.md)  |
  2 | [准备工作](https://github.com/qinjingfei/sell/blob/master/notes/preparation.md)  |
  3 | [页面骨架开发](https://github.com/qinjingfei/sell/blob/master/notes/vue-router.md) |
- 4 | [header组件的开发](https://github.com/qinjingfei/sell/blob/master/notes/header.md)|
-
+ 4 | [header组件的开发](https://github.com/qinjingfei/sell/blob/master/notes/header.md)| 
+ 5	|[goods组件](https://github.com/qinjingfei/sell/blob/master/notes/goods.md)  |
+6|[vue的一些知识点](https://github.com/qinjingfei/sell/blob/master/notes/computed.md)|
 
 ## Build Setup
 
