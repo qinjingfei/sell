@@ -13,14 +13,11 @@
 ## 目录
 
 
-NO| Guide |
----| --- | 
- 1 |  [webpack概念](./notes/webpack.md)  |
- 2 | [准备工作](./notes/preparation.md)  |
- 3 | [页面骨架开发](./notes/vue-router.md) |
- 4 | [header组件的开发](./notes/header.md)| 
- 5 |[goods组件](./notes/goods.md)  |
-6|[vue的一些知识点](./notes/computed.md)|
+NO| Guide | NO | Guide |
+---| --- | ---|---|
+ 1 |  [webpack概念](./notes/1_webpack.md) | 2 | [准备工作](./notes/2_preparation.md)  |
+ 3 | [页面骨架开发](./notes/3_skeleton.md) |4 | [header组件的开发](./notes/4_header.md)| 
+ 5 |[goods组件](./notes/goods.md)  | 6|[vue的一些知识点](./notes/computed.md)|
 
 ## Build Setup
 
