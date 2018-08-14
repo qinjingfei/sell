@@ -1,10 +1,8 @@
 
 # goods 组件
 
-这是goods组件的部分结构和数据
-![goods_1](./img/goods_1.png)
-这里是goods组件的部分效果图
-![goods_2](./img/goods_2.png)
+这是goods组件的部分数据和效果图
+![](./img/goods_1.jpg)
 
 ## 如何实现右侧下拉并且与左侧菜单栏匹配
 

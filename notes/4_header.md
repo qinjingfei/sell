@@ -8,38 +8,40 @@
 
 [vue resource github](https://github.com/pagekit/vue-resource)
 
+Example
+
+```javascript
+{
+  {   //// GET /someUrl GET /s 
+  this.$http.get('/someUrl').then(response => {
+
+    // get body data
+    this.someData = response.body;
+
+  }, response => {
+    // error callback
+  });
+}
+
+``` 
+
+
 * 首先，我们需要取得mock data.
 
 `src/App.vue`
 
 ```javascript
- import Header from './components/header/header.vue'
-
-  const ERR_OK = 0;
-  export default {
-    name: 'App',
-    data() {
-      return {
-        seller: {}
-      };
-    },
-    created() {
+ created() { 
+    this.$http.get("/api/seller").then(response => {
       //因为是mock的数据，所以一定会成功，就不写失败的call back了
-      // 这里是一个promise对象
-      this.$http.get('/api/seller').then((response) => {
-        //extract json from response
-        // reponse.json 是一个promise对象,所以这里我们用response.body
-        response = response.body;
-        this.seller = response.data
-        }
-      })
-    },
-    components: {
-      Header           //es6 相当于 Header: Header
-    }
-  }
-
+      response = response.body   //extract json from response
+      if (response.errno === ERR_OK) {
+        this.seller = response.data  
+      }
+    })
+  },
 ```
+我们需要在vue创建的时候就要得到这个`seller`的数据，所以要放在`created` 的钩子里面。
 
 * 然后，我们需要把在`src/App.vue`中取得的`seller`传给子组件`header.vue`.
 
@@ -67,7 +69,7 @@ props: {
 //...
 ```
 
-* vue根据不同type切换不同图片
+### vue根据不同type切换不同图片
 
 ```html
 <ul v-if="seller.supports" class="supports">
@@ -77,6 +79,9 @@ props: {
   </li>
 </ul>
 ```
+`seller.supports[index].type` 里面有 0, 1, 2, 3, 4五种类型分别对应`["decrease", "discount", "special", "invoice", "guarantee"]`
+
+`:class="classMap[seller.supports[index].type]"` 把数组classMap 的值跟class绑定在一起
 
 ```javascript
 
@@ -86,19 +91,37 @@ created() {
 ```
 
 ```stylus
-
-&.decrease
-  bg-image('decrease_1')
-&.guarantee
-  bg-image('guarantee_1')
-&.discount
-  bg-image('discount_1')
-&.invoice
-  bg-image('invoice_1')
-&.special
-  bg-image('special_1')
+.icon
+	&.decrease
+	  bg-image('decrease_1')
+	&.guarantee
+	  bg-image('guarantee_1')
+	&.discount
+	  bg-image('discount_1')
+	&.invoice
+	  bg-image('invoice_1')
+	&.special
+	  bg-image('special_1')
 
 ```
+每个class对应不同的`background-image`
+所以，当`seller.supports[index].type`变化时，`background-image`也会跟着变化.
+
+### v-show vs v-if
+
+<img src="./img/4_1.gif" width="300">
+
+```
+<div v-show="detailShow" class="detail">
+ // 在其他某个元素，点击来控制detailShow的true or false，来控制这个元素是否显示
+</div>
+```
+这样就实现了点击弹出页面.
+
+
+* `v-if` 是“真正”的条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。
+* `v-show` 就简单得多——不管初始条件是什么，元素总是会被渲染，并且只是简单地基于 CSS 进行切换。
+
 
 ## CSS 部分
 
@@ -108,6 +131,7 @@ created() {
 
 
 ![header_1.png](./img/header_1.png)
+
 [各种CSS实现Sticky Footer](https://mp.weixin.qq.com/s?__biz=MzU0OTE3MjE1Mw%3D%3D&mid=2247483693&idx=1&sn=ea846c8a1b404a8a0aa5a5175059e0f4&chksm=fbb2a7fbccc52eed1b62f21503d93449c8425c464d5b4ac576facadf560f95ab9ea8aca5484b&mpshare=1&scene=23&srcid=1120MlKsKxWYxEsbttZ5V0CO)
 
 在这个项目中，我们是用第二种将页脚的顶部外边距设为负数的方式实现的。
@@ -161,8 +185,6 @@ bg-image($url)
   background-image: url($url + "@2x.png")
   @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3)
     background-image: url($url + "@3x.png")
-
-
 
 @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5)
   .border-1px

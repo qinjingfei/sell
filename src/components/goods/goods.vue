@@ -58,8 +58,8 @@ import cartcontrol from "@/components/cartcontrol/cartcontrol";
 const ERR_OK = 0;
 
 export default {
-  props: {
-    seller: {
+  props: {  
+    seller: {                   //接收seller对象
       type: Object
     }
   },
@@ -72,23 +72,21 @@ export default {
       selectedFood: {}
     };
   },
-  created() {
-    this.$http.get("/api/goods").then(response => {
-      //因为是mock的数据，所以一定会成功，就不写失败的call back了
-      response = response.body; //extract json from response
+  created() {                                           
+    this.$http.get("/api/goods").then(response => {     //因为是mock的数据，所以一定会成功，就不写失败的call back了
+      response = response.body;                         //extract json from response
       if (response.errno === ERR_OK) {
-        this.goods = response.data; //数据会立即更新，但DOM还未渲染
-        this.$nextTick(() => {
-          //会在下一次DOM更新时，执行
-          this._initScroll(); //初始化BScroll
-          this._calculateHeight(); //计算每个foodlist高度，并把它们的accumulator放入到数组listHeight中
+        this.goods = response.data;                     //数据会立即更新，但DOM还未渲染
+        this.$nextTick(() => {                          //会在下一次DOM更新时，执行
+          this._initScroll();                           //初始化BScroll
+          this._calculateHeight();                      //计算每个foodlist高度，并把它们的accumulator放入到数组listHeight中
         });
       }
     });
     this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
   },
-  computed: {
-    currentIndex() {
+  computed: {                                           //需要缓存的计算属性
+    currentIndex() {                                     
       for (let i = 0; i < this.listHeight.length; i++) {
         let height1 = this.listHeight[i];
         let height2 = this.listHeight[i + 1];
@@ -112,24 +110,21 @@ export default {
         return;
       }
       this.selectedFood = food;
-      this.$refs.food.show(); //父组件调用自组件的方法
+      this.$refs.food.show();                         //父组件调用子组件的方法
     },
-    //DOM更新完后，执行shopcart的drop方法
     addFood(target) {
-      this.$nextTick(() => {
-        this.$refs.shopcart.drop(target);
+      this.$nextTick(() => {                        //DOM更新完后，执行shopcart的drop方法
+        this.$refs.shopcart.drop(target);           //traget是来自于子组件cartcontrol
       });
     },
-    //下划线代表私有方法, 初始化BScroll
+    //下划线代表私有方法
     _initScroll() {
-      this.menuScroll = new BScroll(this.$refs.menuWrapper, {
-        //初始化this.menuScroll
-        click: true
+      this.menuScroll = new BScroll(this.$refs.menuWrapper, {   //初始化menuScroll
+        click: true          //better-scroll会将点击事件去掉，如果滚动部分需要有点击事件，需要在参数里加上click：true
       });
-      this.foodsScroll = new BScroll(this.$refs.foodWrapper, {
-        //初始化this.foodScroll
-        probeType: 3,
-        click: true
+      this.foodsScroll = new BScroll(this.$refs.foodWrapper, {   //初始化foodScroll
+        probeType: 3,      
+        click: true         //better-scroll会将点击事件去掉，如果滚动部分需要有点击事件，需要在参数里加上click：true
       });
       this.foodsScroll.on(
         "scroll",
@@ -156,11 +151,12 @@ export default {
     },
     _drop(target) {
       // 体验优化,异步执行下落动画
-      this.$nextTick(() => {
-        this.$refs.shopcart.drop(target);
+      this.$nextTick(() => {                    
+        this.$refs.shopcart.drop(target);       //调用子组件drop方法
       });
     }
   },
+  //注册子组件
   components: {
     shopcart,
     cartcontrol,

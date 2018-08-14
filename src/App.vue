@@ -39,7 +39,7 @@ export default {
       if (response.errno === ERR_OK) {
         this.seller = response.data  
       }
-    })  
+    })
   },
   components: {
     Header //es6 相当于 Header: Header

@@ -36,7 +36,7 @@ module.exports = {
 
  //...
 }
- ```
+```
 
 ## Output(出口)
 

@@ -15,12 +15,12 @@
 
 NO| Guide |
 ---| --- | 
- 1 |  [webpack概念](https://github.com/qinjingfei/sell/blob/master/notes/webpack.md)  |
- 2 | [准备工作](https://github.com/qinjingfei/sell/blob/master/notes/preparation.md)  |
- 3 | [页面骨架开发](https://github.com/qinjingfei/sell/blob/master/notes/vue-router.md) |
- 4 | [header组件的开发](https://github.com/qinjingfei/sell/blob/master/notes/header.md)| 
- 5	|[goods组件](https://github.com/qinjingfei/sell/blob/master/notes/goods.md)  |
-6|[vue的一些知识点](https://github.com/qinjingfei/sell/blob/master/notes/computed.md)|
+ 1 |  [webpack概念](./notes/webpack.md)  |
+ 2 | [准备工作](./notes/preparation.md)  |
+ 3 | [页面骨架开发](./notes/vue-router.md) |
+ 4 | [header组件的开发](./notes/header.md)| 
+ 5 |[goods组件](./notes/goods.md)  |
+6|[vue的一些知识点](./notes/computed.md)|
 
 ## Build Setup
 

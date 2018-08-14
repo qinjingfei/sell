@@ -23,13 +23,13 @@
 
 有时也需要在内联语句处理器中访问原始的 DOM 事件。可以用特殊变量 $event 把它传入方法：
 
-```
+```html
   <li v-for="(item,index) in goods" class="menu-item"  :class="{'current':currentIndex===index}"
                 @click="selectMenu(index,$event)" ref="menuList" :key="index">
 
 ```
 
-```
+```javascript
 selectMenu(index, event) {
       if (!event._constructed) {
         return;
@@ -83,7 +83,7 @@ v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做
 
 ## 组件的复用
 
-```
+```html
 <div id="components-demo">
   <button-counter></button-counter>
   <button-counter></button-counter>
@@ -95,7 +95,7 @@ v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做
 ## `data`必须是一个函数
 一个组件的 `data` 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝：
 
-```
+```javascript
 data: function () {
   return {
     count: 0
@@ -107,12 +107,12 @@ data: function () {
 
 [Prop](https://cn.vuejs.org/v2/guide/components-props.html)
 
-```
+```html
   <!--把food传给子组件cartcontrol， add是在food.vue里自定义的事件, 是为了将target传给父组件(goods.vue)-->
  <cartcontrol @add="addFood" :food="food"></cartcontrol>
 ```
 
-```
+```javascript
  props:{
         food: {
             type: Object
@@ -130,14 +130,14 @@ every component must have a single root element (每个组件必须只有一个�
 
 我们可以调用内建的 `$emit` 方法并传入事件的名字，来向父级组件触发一个事件：
 
-```
+```html
 <button v-on:click="$emit('enlarge-text')">
   Enlarge text
 </button>
 ```
 
 
-```
+```html
 <blog-post
   ...
   v-on:enlarge-text="postFontSize += 0.1"
@@ -158,11 +158,12 @@ every component must have a single root element (每个组件必须只有一个�
 
 尽管存在 prop 和事件，有的时候你仍可能需要在 JavaScript 里直接访问一个子组件。为了达到这个目的，你可以通过 `ref` 特性为这个子组件赋予一个 ID 引用。例如：
 
-```
+```html
 <base-input ref="usernameInput"></base-input>
 
 ```
 可以使用:
+
 ```
 this.$refs.usernameInput
 ```
@@ -170,12 +171,12 @@ this.$refs.usernameInput
 
 例子：
 
-```
+```html
  <!--把food传给子组件cartcontrol， add是在food.vue里自定义的事件, 是为了将target传给父组件(goods.vue)-->
 <cartcontrol @add="addFood" :food="food"></cartcontrol>
 ```
 
-```
+```javascript
 //DOM更新完后，执行shopcart的drop方法
 addFood(target){
   this.$nextTick(() => {

@@ -22,7 +22,8 @@ export default {
   },
   methods: {
     addCart(event) {
-      if (!event._constructed) {
+      //better-scroll派发的event事件和原生js的event有属性上的区别，其中有一个属性为event._constructed。better-scroll派发的事件中event._constructed为true，原生点击事件中没有这个属性。
+      if (!event._constructed) {  //如果不存在这个属性,则为原生点击事件，不执行下面的函数
         return;
       }
       if (this.food.count) {
