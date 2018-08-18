@@ -4,7 +4,7 @@
 
 [项目演示地址](https://qinjingfei.github.io/sell/)
 
-<img src="./notes/img/scan.png" width="200">
+<img src="./notes/img/frame.png" width="200">
 
 效果图
 
