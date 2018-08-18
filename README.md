@@ -2,14 +2,14 @@
 
 > vue仿饿了么外卖
 
-[项目演示地址](http://123.207.144.72/#/goods)
+[项目演示地址](https://qinjingfei.github.io/sell/)
 
 <img src="./notes/img/scan.png" width="200">
 
 效果图
 
 <img src="./notes/img/readme_1.jpg" width="600">
-<img src="./notes/img/readme_2.png" width="600>
+<img src="./notes/img/readme_2.png" width="600">
 
 
 ## 目录
