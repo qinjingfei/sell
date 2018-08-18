@@ -90,16 +90,16 @@ export default {
 		ratingselect
 	},
 	created() {
-		this.$http.get("/api/ratings").then((response) => {
+		const url = 'https://raw.githubusercontent.com/qinjingfei/sell/master/data.json'
+		this.$http.get(url).then((response) => {
 			response = response.body;
-			if (response.errno === ERR_OK) {
-				this.ratings = response.data;  			//数据变了，DOM没有立即更新	
-				this.$nextTick(() => {					//在DOM更新之后，执行...
-					this.scroll = new BScroll(this.$refs.ratings, {		//初始化BScroll
-						click: true
-					});
+			this.ratings = response.ratings;
+			this.$nextTick(() => {
+				this.scroll = new BScroll(this.$refs.ratings, {		//初始化BScroll
+					click: true
 				});
-			}
+			});
+			
 		});
     },
 	methods:{

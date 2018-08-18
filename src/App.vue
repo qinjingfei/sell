@@ -33,12 +33,11 @@ export default {
     }  
   },
   created() {
-    this.$http.get("/api/seller").then(response => {
-      //因为是mock的数据，所以一定会成功，就不写失败的call back了
-      response = response.body   //extract json from response
-      if (response.errno === ERR_OK) {
-        this.seller = response.data  
-      }
+    const url = 'https://raw.githubusercontent.com/qinjingfei/sell/master/data.json'
+    this.$http.get(url).then(response => {
+      response = response.body  
+      this.seller = response.seller  
+      
     })
   },
   components: {

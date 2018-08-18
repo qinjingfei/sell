@@ -13,22 +13,26 @@
           {{seller.description}}/{{seller.deliveryTime}}分钟送达
         </div>
         <div v-if="seller.supports" class="support">
+          <!-- 通过切换不同的class, 来改变不同的backgournd-image -->
           <span class="icon" :class="classMap[seller.supports[0].type]"></span>
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
       </div>
+       <!-- 首先判断seller.supports的值是存在，才能执行下列代码 -->
       <div v-if="seller.supports" class="support-count" @click="showDetail">
         <span class="count">{{seller.supports.length}}个</span>
         <i class="icon-keyboard_arrow_right"></i>
       </div>
     </div>
+    <!-- 通过点击事件，来切换detailShow的值,来实现v-show模块的显示或隐藏-->
     <div class="bulletin-wrapper" @click="showDetail">
-      <span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span>      <!--取消空白间隙-->
+      <span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span> <!--取消空白间隙-->
       <i class="icon-keyboard_arrow_right"></i>
     </div>
     <div class="background">
       <img :src="seller.avatar" alt="" width="100%" height="100%">
     </div>
+    <!-- 根据detailShow的值,来实现v-show模块的显示或隐藏 -->
     <div v-show="detailShow" class="detail">
       <div class="detail-wrapper clearfix">
         <div class="detail-main">
@@ -41,8 +45,10 @@
             <div class="text">优惠信息</div>
             <div class="line"></div>
           </div>
+          <!-- 首先判断seller.supports的值是存在，才能执行下列代码 -->
           <ul v-if="seller.supports" class="supports">
             <li class="support-item" v-for="(item,index) in seller.supports" :key="index">
+               <!-- 通过切换不同的class, 来改变不同的backgournd-image -->
               <span class="icon" :class="classMap[seller.supports[index].type]"></span>
               <span class="text">{{seller.supports[index].description}}</span>
             </li>
@@ -148,6 +154,7 @@ export default {
           margin-right: 4px
           background-size: 12px 12px
           background-repeat: no-repeat
+          // 不同class对应不同的background-image
           &.decrease
             bg-image('decrease_1')
           &.guarantee

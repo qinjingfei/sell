@@ -3,6 +3,7 @@
     <div class="goods">
       <div class="menu-wrapper" ref="menuWrapper">
         <ul>
+          <!--  -->
           <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}" @click="selectMenu(index,$event)" ref="menuList" :key="index">
             <span class="text">
               <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
@@ -72,16 +73,16 @@ export default {
       selectedFood: {}
     };
   },
-  created() {                                           
-    this.$http.get("/api/goods").then(response => {     //因为是mock的数据，所以一定会成功，就不写失败的call back了
-      response = response.body;                         //extract json from response
-      if (response.errno === ERR_OK) {
-        this.goods = response.data;                     //数据会立即更新，但DOM还未渲染
+  created() {
+    const url = 'https://raw.githubusercontent.com/qinjingfei/sell/master/data.json'                                         
+    this.$http.get(url)
+      .then(response => {                               
+        response = response.body;                         
+        this.goods = response.goods;                    
         this.$nextTick(() => {                          //会在下一次DOM更新时，执行
           this._initScroll();                           //初始化BScroll
           this._calculateHeight();                      //计算每个foodlist高度，并把它们的accumulator放入到数组listHeight中
         });
-      }
     });
     this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
   },
@@ -90,6 +91,8 @@ export default {
       for (let i = 0; i < this.listHeight.length; i++) {
         let height1 = this.listHeight[i];
         let height2 = this.listHeight[i + 1];
+        // height2 不存在(height2 只有在height1是最后一个元素时才不存在) 
+        //或者this.crollY 在 height1和height2 之间的时候 return index i 
         if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
           return i;
         }
@@ -106,6 +109,7 @@ export default {
   },
   methods: {
     selectFood(food, event) {
+      //如果不是better-scroll 派发 click事件 return 
       if (!event._constructed) {
         return;
       }
@@ -131,6 +135,7 @@ export default {
         pos => (this.scrollY = Math.abs(Math.round(pos.y)))
       );
     },
+    //计算foodList每个元素的高度，并把它们放入数组listHeight中
     _calculateHeight() {
       let foodList = this.$refs.foodList;
       let height = 0;
@@ -142,12 +147,13 @@ export default {
       }
     },
     selectMenu(index, event) {
-      if (!event._constructed) {
+      //如果不是better-scroll 派发 click事件 return 
+      if (!event._constructed) { 
         return;
       }
       let foodList = this.$refs.foodList;
       let el = foodList[index];
-      this.foodsScroll.scrollToElement(el, 300);
+      this.foodsScroll.scrollToElement(el, 300); //300ms后 滑到这个el
     },
     _drop(target) {
       // 体验优化,异步执行下落动画
