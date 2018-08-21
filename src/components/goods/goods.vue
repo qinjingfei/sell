@@ -6,10 +6,10 @@
           <!--  -->
           <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}" @click="selectMenu(index,$event)" ref="menuList" :key="index">
             <span class="text">
-              <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
+              <span v-show="item.type > 0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
             </span>
           </li>
-        </ul>
+        </ul> 
       </div>
       <div class="foods-wrapper" ref="foodWrapper">
         <ul>
@@ -123,14 +123,14 @@ export default {
     },
     //下划线代表私有方法
     _initScroll() {
-      this.menuScroll = new BScroll(this.$refs.menuWrapper, {   //初始化menuScroll
+      this.menuScroll = new BScroll(this.$refs.menuWrapper, {   //初始化menuScroll, 但是项目中并没有用到这个，因为meanuWrapper不需要下拉
         click: true          //better-scroll会将点击事件去掉，如果滚动部分需要有点击事件，需要在参数里加上click：true
       });
       this.foodsScroll = new BScroll(this.$refs.foodWrapper, {   //初始化foodScroll
         probeType: 3,      
         click: true         //better-scroll会将点击事件去掉，如果滚动部分需要有点击事件，需要在参数里加上click：true
       });
-      this.foodsScroll.on(
+      this.foodsScroll.on( // 监听scroll事件， 每次发生变化把正整数pos.y 传给this.scrollY
         "scroll",
         pos => (this.scrollY = Math.abs(Math.round(pos.y)))
       );
@@ -153,7 +153,7 @@ export default {
       }
       let foodList = this.$refs.foodList;
       let el = foodList[index];
-      this.foodsScroll.scrollToElement(el, 300); //300ms后 滑到这个el
+      this.foodsScroll.scrollToElement(el, 300); //better-scroll scrollToElement 方法， 300ms后 滑到这个el
     },
     _drop(target) {
       // 体验优化,异步执行下落动画
