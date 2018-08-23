@@ -29,8 +29,9 @@ export default {
       if (this.food.count) {
         this.food.count++;
       } else {
-        Vue.set(this.food, "count", 1);
+        Vue.set(this.food, "count", 1); //给 food添加count属性
       }
+      console.log(event.target)
       this.$emit('add', event.target); //为了将evet.target传给food.vue,自定义一个事件 add
     },
     decreaseCart(event) {
@@ -62,7 +63,7 @@ export default {
       transform: rotate(0)
     &.move-enter-active, &.move-leave-active
       transition: all 0.4s linear
-    &.move-enter, &.move-leave-active
+    &.move-enter, &.move-leave-to
       opacity: 0
       transform: translate3d(24px, 0, 0)
       .inner

@@ -72,7 +72,7 @@ _initScroll() {
     },
 ```
 
-* 在computed(会缓存) 中的 `currentIndex`， `this.scrollY`跟数组`this.listHeight`中元素作比较，如果处于两个元素之间, return i. 否则return 0
+* 在computed(会缓存) 中的 `currentIndex`， `this.scrollY`跟数组`this.listHeight`中高度作比较，如果处于两个高度之间, return i. 否则return 0
 
 ```
 currentIndex() {                                     
@@ -89,7 +89,7 @@ currentIndex() {
     }
 ```
 
-* 如果，`currentIndex === index`渲染`class: current`. 否则，do nothing.
+* 如果，`currentIndex === index`渲染`class: current`. 否则，什么都不做。
 
 ```html
   <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}" @click="selectMenu(index,$event)" ref="menuList" :key="index">
