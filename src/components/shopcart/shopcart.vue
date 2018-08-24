@@ -141,13 +141,14 @@ export default {
     }
   },
   methods:{
+    //  如果ball.show为false, 把ball放入dropBalls里， return
     drop(el){
       this.balls.forEach((ball) => {
         if(!ball.show){
           ball.show = true;
-          ball.el = el;
+          ball.el = el;  // 这里的el 是 cartcontrol组件中的add icon 的DOM
           this.dropBalls.push(ball);
-          return;
+          return;   
         }
       })
     },
@@ -171,13 +172,13 @@ export default {
         this.balls.forEach((ball)=>{
           if(ball.show){
             let rect = ball.el.getBoundingClientRect();
-            let x = rect.left - 32;
-            let y = -(window.innerHeight - rect.top - 22);
-            el.style.display = '';
+            let x = rect.left - 32; // x偏移
+            let y = -(window.innerHeight - rect.top - 22); // y偏移, 负值是往上偏移
+            el.style.display = ''; 
             el.style.webkitTransform = `translate3d(0,${y}px,0)`;
-            el.style.transform = `translate3d(0,${y}px,0)`;
+            el.style.transform = `translate3d(0,${y}px,0)`; // 初始位置y   外层元素做纵向动画
             let inner = el.getElementsByClassName('inner-hook')[0];
-            inner.style.webkitTransform = `translate3d(${x}px,0,0)`;
+            inner.style.webkitTransform = `translate3d(${x}px,0,0)`; // 初始位置 x 内层元素做横向动画
             inner.style.transform = `translate3d(${x}px,0,0)`;
           }
         })
@@ -187,7 +188,7 @@ export default {
       let rf = el.offsetHeight;
       this.$nextTick(() => {
         el.style.webkitTransform = 'translate3d(0,0,0)';
-        el.style.transform = 'translate3d(0,0,0)';
+        el.style.transform = 'translate3d(0,0,0)';  // 最后小球的位置
         let inner = el.getElementsByClassName('inner-hook')[0];
         inner.style.webkitTransform = 'translate3d(0,0,0)';
         inner.style.transform = 'translate3d(0,0,0)';
@@ -302,13 +303,13 @@ export default {
           background: #00b43c
           color: #fff
   .ball-container
-    .ball
-      position: fixed
+    .ball  // 小球在购物中心，隐藏
+      position: fixed // 相对视口做动画
       left: 32px
       bottom: 22px
       z-index: -1 // 小于购物车的z-index
       transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41)
-      .inner
+      .inner  // 小球
         width: 16px
         height: 16px
         border-radius: 50%

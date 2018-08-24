@@ -20,8 +20,8 @@ NO| Guide | NO | Guide |
  1.1 |  [webpack概念](./notes/1_webpack.md) | 1.2 | [webpack从头开始](https://github.com/qinjingfei/baidu/blob/master/notes/1.2.md) |
  2 | [准备工作](./notes/2_preparation.md)  | 3 | [页面骨架开发](./notes/3_skeleton.md) |
  4 | [header组件的开发](./notes/4_header.md)| 5.1 |[goods组件](./notes/5_goods.md)  | 
- 5.2| [cartcontrol 组件](./notes/5.2_cartcontrol.md) | 6|[vue的一些知识点](./notes/6_computed.md)|
- 7| [部署Vue应用到服务器上](./notes/7_nginx.md)
+ 5.2| [cartcontrol 组件](./notes/5.2_cartcontrol.md) | 5.3| [shopcart组件](./notes/5.3_shopcart.md)|
+ 6|[vue的一些知识点](./notes/6_computed.md)|7| [部署Vue应用到服务器上](./notes/7_nginx.md)
 
 ## Build Setup
 

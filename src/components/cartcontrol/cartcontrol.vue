@@ -31,7 +31,6 @@ export default {
       } else {
         Vue.set(this.food, "count", 1); //给 food添加count属性
       }
-      console.log(event.target)
       this.$emit('add', event.target); //为了将evet.target传给food.vue,自定义一个事件 add
     },
     decreaseCart(event) {
@@ -43,8 +42,6 @@ export default {
   }
 };
 </script>
-
-
 
 <style lang="stylus" scoped>
 .cartcontrol
