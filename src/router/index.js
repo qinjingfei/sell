@@ -1,9 +1,5 @@
 import Vue from "vue"  
-import Router from "vue-router"  
-import Header from "@/components/header/header"  
-import Goods from "@/components/goods/goods"  
-import Ratings from "@/components/ratings/ratings"  
-import Seller from "@/components/seller/seller"  
+import Router from "vue-router"    
 
 Vue.use(Router)  
 
@@ -16,18 +12,17 @@ export default new Router({
     },
     {
       path: "/goods",
-      name: "Goods",
-      component: Goods
+      // 路由懒加载（vue按需加载） 
+      // https://router.vuejs.org/zh/guide/advanced/lazy-loading.html#%E6%8A%8A%E7%BB%84%E4%BB%B6%E6%8C%89%E7%BB%84%E5%88%86%E5%9D%97
+      component: () => import("@/components/goods/goods")
     },
     {
       path: "/ratings",
-      name: "Ratings",
-      component: Ratings
+      component: () => import("@/components/ratings/ratings")
     },
     {
       path: "/seller",
-      name: "Seller",
-      component: Seller
+      component: () => import("@/components/seller/seller")
     }
   ],
   linkActiveClass: "active" //自定义active时，添加的class为active
