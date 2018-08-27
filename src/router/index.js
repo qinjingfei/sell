@@ -12,17 +12,17 @@ export default new Router({
     },
     {
       path: "/goods",
-      // 路由懒加载（vue按需加载） 
+      // 路由懒加载（webpack按需加载） 
       // https://router.vuejs.org/zh/guide/advanced/lazy-loading.html#%E6%8A%8A%E7%BB%84%E4%BB%B6%E6%8C%89%E7%BB%84%E5%88%86%E5%9D%97
-      component: () => import("@/components/goods/goods")
+      component: () => import(/* webpackChunkName: "goods" */ "@/components/goods/goods")
     },
     {
       path: "/ratings",
-      component: () => import("@/components/ratings/ratings")
+      component: () => import(/* webpackChunkName: "ratings" */ "@/components/ratings/ratings")
     },
     {
       path: "/seller",
-      component: () => import("@/components/seller/seller")
+      component: () => import(/* webpackChunkName: "seller" */ "@/components/seller/seller")
     }
   ],
   linkActiveClass: "active" //自定义active时，添加的class为active

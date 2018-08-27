@@ -22,6 +22,7 @@ NO| Guide | NO | Guide |
  4 | [header组件的开发](./notes/4_header.md)| 5.1 |[goods组件](./notes/5_goods.md)  | 
  5.2| [cartcontrol 组件](./notes/5.2_cartcontrol.md) | 5.3| [shopcart组件](./notes/5.3_shopcart.md)|
  6|[vue的一些知识点](./notes/6_computed.md)|7| [部署Vue应用到服务器上](./notes/7_nginx.md)
+ 8|[优化](./notes/8_youhua.md)|
 
 ## Build Setup
 
