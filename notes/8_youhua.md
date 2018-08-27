@@ -59,6 +59,8 @@ output: {
 },
 ```
 
+[Webpack Vue 技巧总结 按需加载, 懒加载，vue-router, output](https://www.jianshu.com/p/8358753f6c3a)
+
 
 ## base64图片(减少HTTP请求)
 
