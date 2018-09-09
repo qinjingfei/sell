@@ -26,6 +26,7 @@
 </template>
 <script>
 import Header from "./components/header/header.vue"  
+import getSeller from '@/api/seller.js'
 
 const ERR_OK = 0  
 export default {
@@ -36,12 +37,7 @@ export default {
     }  
   },
   created() {
-    const url = 'https://raw.githubusercontent.com/qinjingfei/sell/master/data.json'
-    this.$http.get(url).then(response => {
-      response = response.body  
-      this.seller = response.seller  
-      
-    })
+    getSeller().then(seller => this.seller = seller)
   },
   components: {
     Header //es6 相当于 Header: Header
