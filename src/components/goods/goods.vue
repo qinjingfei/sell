@@ -55,6 +55,7 @@ import BScroll from "better-scroll";
 import shopcart from "@/components/shopcart/shopcart";
 import food from "@/components/food/food";
 import cartcontrol from "@/components/cartcontrol/cartcontrol";
+import getGoods from '@/api/goods'
 
 const ERR_OK = 0;
 
@@ -74,16 +75,14 @@ export default {
     };
   },
   created() {
-    const url = 'https://raw.githubusercontent.com/qinjingfei/sell/master/data.json'                                         
-    this.$http.get(url)
-      .then(response => {                               
-        response = response.body;                         
-        this.goods = response.goods;                    
-        this.$nextTick(() => {                          //会在下一次DOM更新时，执行
-          this._initScroll();                           //初始化BScroll
-          this._calculateHeight();                      //计算每个foodlist高度，并把它们的accumulator放入到数组listHeight中
-        });
-    });
+    getGoods().then(goods => {
+      this.goods = goods
+      this.$nextTick(() => {                          //会在下一次DOM更新时，执行
+          this._initScroll();                         //初始化BScroll
+          this._calculateHeight();                    //计算每个foodlist高度，并把它们的accumulator放入到数组listHeight中
+      });
+    })
+    
     this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
   },
   computed: {                                           //需要缓存的计算属性
