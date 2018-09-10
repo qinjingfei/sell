@@ -55,7 +55,7 @@ import BScroll from "better-scroll";
 import shopcart from "@/components/shopcart/shopcart";
 import food from "@/components/food/food";
 import cartcontrol from "@/components/cartcontrol/cartcontrol";
-import getGoods from '@/api/goods'
+import api from '@/api/api'
 
 const ERR_OK = 0;
 
@@ -75,7 +75,7 @@ export default {
     };
   },
   created() {
-    getGoods().then(goods => {
+    api().then(({goods}) => {                         //变量解构
       this.goods = goods
       this.$nextTick(() => {                          //会在下一次DOM更新时，执行
           this._initScroll();                         //初始化BScroll

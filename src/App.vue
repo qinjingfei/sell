@@ -26,7 +26,7 @@
 </template>
 <script>
 import Header from "./components/header/header.vue"  
-import getSeller from '@/api/seller.js'
+import api from '@/api/api'
 
 const ERR_OK = 0  
 export default {
@@ -37,7 +37,7 @@ export default {
     }  
   },
   created() {
-    getSeller().then(seller => this.seller = seller)
+    api().then(({seller}) => this.seller = seller)    //变量解构
   },
   components: {
     Header //es6 相当于 Header: Header
