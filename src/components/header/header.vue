@@ -73,14 +73,13 @@
 
 <script>
 import star from "@/components/star/star";
+import { mapState } from 'vuex';
 
 export default {
   name: "Header",
-  props: {
-    seller: {
-      type: Object
-    }
-  },
+  computed: mapState({
+    seller: state => state.api.seller
+  }),
   data() {
     return {
       detailShow: false

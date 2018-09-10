@@ -56,36 +56,31 @@ import shopcart from "@/components/shopcart/shopcart";
 import food from "@/components/food/food";
 import cartcontrol from "@/components/cartcontrol/cartcontrol";
 import api from '@/api/api'
+import { mapState } from 'vuex';
 
 const ERR_OK = 0;
 
 export default {
-  props: {  
-    seller: {                   //接收seller对象
-      type: Object
-    }
-  },
   name: "goods",
   data() {
     return {
-      goods: {},
       listHeight: [],
       scrollY: 0,
       selectedFood: {}
     };
   },
-  created() {
-    api().then(({goods}) => {                         //变量解构
-      this.goods = goods
-      this.$nextTick(() => {                          //会在下一次DOM更新时，执行
-          this._initScroll();                         //初始化BScroll
-          this._calculateHeight();                    //计算每个foodlist高度，并把它们的accumulator放入到数组listHeight中
-      });
-    })
-    
+  beforeMount() {
     this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
+    this.$nextTick(() => {
+        this._initScroll();
+        this._calculateHeight();
+    });
   },
-  computed: {                                           //需要缓存的计算属性
+  computed: {  
+    ...mapState({
+      seller: state => state.api.seller,
+      goods: state => state.api.goods
+    }),
     currentIndex() {                                     
       for (let i = 0; i < this.listHeight.length; i++) {
         let height1 = this.listHeight[i];

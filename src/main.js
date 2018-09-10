@@ -5,6 +5,7 @@ import VueResource from 'vue-resource'
 import App from './App'
 import router from './router'
 import VueLazyLoad from 'vue-lazyload'
+import store from '@/store/index'
 
 Vue.config.productionTip = false  
 Vue.use(VueResource)  	//引用VueResource
@@ -16,6 +17,7 @@ Vue.use(VueLazyLoad, {
 new Vue({
   el: '#app',
   router,
+  store,
   components: {App},
   template: '<App/>'
 })  

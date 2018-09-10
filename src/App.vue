@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-    <!-- 把seller 传给子组件 header.vue -->
-    <Header :seller="seller"></Header>
-    <!-- 使用 router-link 组件来导航. -->
-    <!-- 通过传入 `to` 属性指定链接. -->
-    <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+    <Header></Header>
     <div class="tab">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
@@ -16,11 +12,8 @@
         <router-link to="/seller">商家</router-link>
       </div>
     </div>
-    <!-- 路由出口 -->
-    <!-- 路由匹配到的组件将渲染在这里 -->
-    <!-- <keep-alive> 包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们 -->
     <keep-alive>
-      <router-view :seller="seller"></router-view>
+      <router-view></router-view>
     </keep-alive>
   </div>
 </template>
@@ -31,16 +24,11 @@ import api from '@/api/api'
 const ERR_OK = 0  
 export default {
   name: "App",
-  data() {
-    return {
-      seller: {}
-    }  
-  },
   created() {
-    api().then(({seller}) => this.seller = seller)    //变量解构
+    this.$store.dispatch('api/getData',api())
   },
   components: {
-    Header //es6 相当于 Header: Header
+    Header
   }
 }  
 </script>

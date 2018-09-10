@@ -71,14 +71,13 @@
 import BScroll from "better-scroll";
 import star from "@/components/star/star";
 import split from "@/components/split/split";
+import { mapState } from 'vuex';
 
 export default {
   name: "seller",
-  props: {
-    seller: {
-      type: Object
-    }
-  },
+  computed: mapState({
+    seller: state => state.api.seller
+  }),
   watch: {
     seller() {
       this.$nextTick(() => {

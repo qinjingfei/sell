@@ -65,6 +65,7 @@ import star from "@/components/star/star"
 import split from "@/components/split/split"
 import ratingselect from "@/components/ratingselect/ratingselect";
 import {formatDate} from '@/common/js/date';
+import { mapState } from 'vuex';
 
 
 const ALL = 2;
@@ -72,14 +73,12 @@ const ERR_OK = 0;
 
 export default {
 	name: "ratings",
-	props:{
-		seller:{
-			type: Object
-		}
-	},
+	computed: mapState({
+		seller: state => state.api.seller,
+		ratings: state => state.api.ratings
+	}),
 	data() {
 		return {
-		ratings: [],
 		selectType: ALL,
 		onlyContent: true
 		};
@@ -90,16 +89,10 @@ export default {
 		ratingselect
 	},
 	created() {
-		const url = 'https://raw.githubusercontent.com/qinjingfei/sell/master/data.json'
-		this.$http.get(url).then((response) => {
-			response = response.body;
-			this.ratings = response.ratings;
-			this.$nextTick(() => {
-				this.scroll = new BScroll(this.$refs.ratings, {		//初始化BScroll
-					click: true
-				});
+		this.$nextTick(() => {
+			this.scroll = new BScroll(this.$refs.ratings, {		//初始化BScroll
+				click: true
 			});
-			
 		});
     },
 	methods:{
